@@ -1,6 +1,15 @@
 # Serverless Compute Performance Benchmark
 
-A minimal, realistic benchmark tool to compare the raw compute performance of different serverless and edge computing platforms. This repository runs a consistent CPU-intensive workload across environments like Cloudflare Workers, Vercel Serverless Functions, and vanilla Node.js/Bun servers, measuring execution time.
+A minimal, benchmark tool to compare the raw compute performance of different serverless and edge computing platforms. This repository runs a consistent CPU-intensive workload across environments like Cloudflare Workers, Vercel Serverless Functions, and vanilla Node.js/Bun servers, measuring execution time.
+
+This bench and the [associated video](https://youtu.be/VMINKJHmOZo?si=eYmdFqzUPjpuwJxx) sparked a heated debate (floating point math…). @Theo reacted and came up with a [way more comprehensive one](https://github.com/t3dotgg/cf-vs-vercel-bench/tree/main) than my initial implementation.
+
+His bench adds:
+- more realistic use-cases
+- framework comparison
+- SSR…
+
+As this one is also intended to be ran on VPS & bare metal, I added @Theo's "realistic math" and "SSR" tests in their respective branches here. Sticking with Vanilla as comparing JS frameworks rendering performance was never the goal.
 
 ## 🎯 Purpose
 
@@ -39,11 +48,11 @@ for (let i = 0; i < 100_000_000; i++) {
 
 ### Measurement procedure
 
-As Cloudflare isolates provide precise access to time and performance (for security reasons explained here), we'll make the measurements including the network round-trip.
+As Cloudflare isolates don't provide precise access to time and performance (for security reasons explained [here](https://developers.cloudflare.com/workers/reference/security-model/#step-1-disallow-timers-and-multi-threading)), we'll make the measurements including the network round-trip.
 
 Considering a compute tasks that takes at least 10 seconds on average, with all providers tested in the same region (France in my initial run), network latency will be deemed negligible.
 
-### Tested Platforms:
+### Tested Platforms
 
 | Platform | Environment | Runtime | Notes |
 |--------|-------------|--------|-------|
@@ -104,8 +113,7 @@ rsync -arv … (note you might want to set up ports and listening IP in vanilla-
 ### 5. Configure the testbench
 
 Set the `config.js` with your endpoints, the number of API calls and the delay between them.
-
-You can also change the iteration count in `cpuIntensiveFunction.js` (NB: it's hardlinked to `vercel/`, `cloudflare` and `vanilla-server/`) so no need to modify it elsewhere.
+You can also change the iteration count in `cpuIntensiveFunction.js`.
 
 ### 6. Hit it
 
@@ -115,7 +123,9 @@ Each run returns:
 
 #### 📊 Actual results
 
-These are the ouputs I optained, comparing Cloudflare, Vercel (Standard VM Pro account, 1vCPU/2GB), Alwaysdata public cloud (1CPU/1GB) and Scaleway COPARM1 (ARM64 2vCPU, 8GB).
+These are the outputs I obtained, comparing Cloudflare, Vercel (Standard VM Pro account, 1vCPU/2GB), Alwaysdata public cloud (1CPU/1GB) and Scaleway COPARM1 (ARM64 2vCPU, 8GB).
+
+Note that all four providers were compared in their respective Paris location. Although the exact network latency varies, it should be minimal.
 
 ```bash
 === Final Results ===
