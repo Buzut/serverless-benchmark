@@ -6,9 +6,9 @@ const IP_ADDR = "0.0.0.0";
 
 const server = http.createServer((_, res) => {
   try {
-    const { totalTime, sum } = cpuIntensiveFunction();
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end(`Calculation took ${totalTime}ms with result: ${sum}`);
+    const { html } = cpuIntensiveFunction();
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end(html);
   } catch (err) {
     console.error(err);
     res.writeHead(500);
