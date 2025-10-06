@@ -1,6 +1,13 @@
 # Serverless Compute Performance Benchmark
 
-A minimal, realistic benchmark tool to compare the raw compute performance of different serverless and edge computing platforms. This repository runs a consistent CPU-intensive workload across environments like Cloudflare Workers, Vercel Serverless Functions, and vanilla Node.js/Bun servers, measuring execution time.
+A minimal, benchmark tool to compare the raw compute performance of different serverless and edge computing platforms. This repository runs a consistent CPU-intensive workload across environments like Cloudflare Workers, Vercel Serverless Functions, and vanilla Node.js/Bun servers, measuring execution time.
+
+This bench and the [associated video]() sparked a heated debate (floating point math…). @Theo reacted and came up with a [way more comprehensive one](https://github.com/t3dotgg/cf-vs-vercel-bench/tree/main) than my initial implementation. His bench adds:
+- more realistic use-cases
+- framework comparison
+- SSR…
+
+As this one is also intended to be ran on VPS & bare metal, I added @Theo's "realistic math" and "SSR" tests in their respective branches here. Sticking with Vanilla as comparing JS framework rendering performance was never the goal.
 
 ## 🎯 Purpose
 
