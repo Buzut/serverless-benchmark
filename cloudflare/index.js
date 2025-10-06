@@ -2,7 +2,7 @@ import cpuIntensiveFunction from "./cpuIntensiveFunction.js";
 
 export default {
   async fetch() {
-    const { sum } = cpuIntensiveFunction();
-    return new Response(`Result ${sum}`);
+    const { result, stringHash, primeCount, arrLen } = cpuIntensiveFunction();
+    return new Response(`res: ${result}, hash: ${stringHash}, prime: ${primeCount}, arrLen: ${arrLen}`);
   },
 };
